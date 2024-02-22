@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: send-mail-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: send-mail
+  template:
+    metadata:
+      labels:
+        app: send-mail
+    spec:
+      containers:
+        - name: send-mail
+          image: hasanasif/send-mail
+          ports:
+            - containerPort: 5001
+          env:
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-secret
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-secret
+                  key: smtp-password
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-secret
+                  key: mongodb-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: send-mail-service
+spec:
+  selector:
+    app: send-mail
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+  type: LoadBalancer

@@ -1,0 +1,30 @@
+version: '1'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+
+  home:
+    build: ./home
+    container_name: home
+    ports:
+      - "5000:5000"
+    networks:
+      - mynetwork
+
+  send_mail:
+    build: ./send_mail
+    container_name: send_mail
+    ports:
+      - "5001:5001"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
