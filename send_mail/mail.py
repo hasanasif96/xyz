@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
-#password="xlO7WEk33f65Dsdr"
+
 password = os.environ.get('MONGO_PASSWORD')
 connection_str = "mongodb+srv://mailsforha:{password}@cluster1.osvjyqy.mongodb.net/"
 #client = MongoClient(connection_str)
@@ -20,9 +20,8 @@ db = client['user_emails']
 collection = db['emails']
 
 def send_email(receiver_email):
-    #sender_email = "habuffalo56@gmail.com"
-    #password = "ptnu movr pspb qmqr"
-    sender_email = os.environ.get('SMTP_USERNAME')  # Enter your email address
+    
+    sender_email = os.environ.get('SMTP_USERNAME')  
     password = os.environ.get('SMTP_PASSWORD')
 
     s = smtplib.SMTP('smtp.gmail.com', 587)
