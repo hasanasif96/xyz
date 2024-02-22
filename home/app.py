@@ -4,7 +4,7 @@ import requests
 import os
 
 app = Flask(__name__)
-#password="xlO7WEk33f65Dsdr"
+
 password = os.environ.get('MONGO_PASSWORD')
 connection_str = "mongodb+srv://mailsforha:{password}@cluster1.osvjyqy.mongodb.net/"
 #client = MongoClient(connection_str)
